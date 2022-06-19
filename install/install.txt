@@ -1,0 +1,29 @@
+docs.ansible.com
+push: на управляемых серверах ничего не установлено, Master делает push настроек
+pull: на управляемых серверах установлен Agent,который делает pull настроек от Master
+
+1)Control Server(Master):
+1. Linux only (Red Hat, Debian, OS X)
+2. python 2.6 + или Python 3.5 +
+
+2)Controlled Servers - Managed Servers:
+- Linux : Admin Username/Password или SSH Key и python 2.6 +
+- Windows :  Admin Username/Password, PowerShell 3.0 и запустить скрипт /ConfigureRemotingForAnsible.ps1
+
+3)Работа происходит через:
+- Linux : SSH  Port 22
+- Windows : WinRM Port 5986
+
+CentOS 7:
+sudo yum install epel-release
+sudo yum install ansible
+
+ansible --version
+
+Ubuntu:
+sudo apt-add-repository ppd:ansible/ansible
+sudo apt update
+sudo apt install ansible
+
+ansible --version
+
