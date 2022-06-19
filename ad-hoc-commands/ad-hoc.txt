@@ -1,0 +1,81 @@
+[staging_servers]
+linuxX   ansible_host=172.31.8.69   ansible_user=admin_username    ansible_ssh_private_key_file=/home/user/.ssh/california-key1.pem
+
+[prod_servers]
+linux1   ansible_host=172.31.27.16  
+linux2   ansible_host=172.31.19.188  
+
+[prod_servers:vars]
+ansible_user=admin_username
+ansible_ssh_private_key_file=/home/user/.ssh/california-key2.pem
+
+========================================================================
+
+ansible all -m ping
+
+ansible all -m setup
+
+ansible staging_servers -m setup
+
+ansible all -m shell -a "uptime"
+
+ansible all -m shell -a "ls /etc"
+
+ansible all -m command -a "ls /var"  // запускает не через shell, не видит переменные среды и нет output
+
+ansible all -m shell -a "ls /etc | grep group"
+
+echo "Hello" > hello.txt
+
+ansible all -m copy -a "src=hello.txt dest=/home mode=777" //destination not writable
+
+ansible all -m copy -a "src=hello.txt dest=/home mode=777" -b
+
+ansible all -m shell -a "ls -la /home"
+
+ansible all -m file -a "path=/home/hello.txt state=absent" -b
+
+ansible prod_servers -m copy -a "src=hello.txt dest=/home mode=777" -b
+
+ansible all -m file -a "path=/home/hello.txt state=absent" -b
+
+ansible all -m get_url -a "url=link_to_file dest=/home" -b 
+
+ansible all -m shell -a "ls -ls /home" -b 
+
+ansible all -m file -a "path=/home/file_name state=absent" -b 
+
+ansible all -m yum -a "name=stress state=installed" -b 
+
+ansible all -m yum -a "name=stress state=removed" -b
+
+ansible all -m uri -a "url=http://google.com"
+
+ansible all -m uri -a "url=http://google.com return_content=yes"
+
+ansible all -m yum -a "name=httpd state=installed" -b
+
+ansible all -m service -a "name=httpd state=started enabled=yes" -b // apache installing
+
+ansible all -m yum -a "name=httpd state=removed" -b
+
+ansible staging_servers -m shell -a "ls /var" -v  // debug info
+
+ansible staging_servers -m shell -a "ls /var" -vv
+
+ansible staging_servers -m shell -a "ls /var" -vvv
+
+ansible staging_servers -m shell -a "ls /var" -vvvv
+
+ansible staging_servers -m shell -a "ls /var" -vvvvv
+
+ansible-doc -l  // показать все модули  
+
+ansible-doc -l | grep win  // модули для windows
+
+ansible-doc -l | grep ec2
+
+docs.ansible.com 
+
+
+
