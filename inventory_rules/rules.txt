@@ -1,0 +1,91 @@
+nano hosts.txt
+
+Можно просто писать ip-адреса или domain name
+
+10.50.1.1
+10.51.1.2
+
+[staging_servers]
+linuxX   ansible_host=172.31.8.69   ansible_user=admin_username   #ansible_pass=mypassword  ansible_ssh_private_key_file=/home/user/.ssh/california-key1.pem
+
+[prod_servers]
+linux1   ansible_host=172.31.27.16  ansible_user=admin_username   ansible_ssh_private_key_file=/home/user/.ssh/california-key2.pem  // можно удалить, тк есть группа vars
+linux2   ansible_host=172.31.19.188  ansible_user=admin_username   ansible_ssh_private_key_file=/home/user/.ssh/california-key2.pem // можно удалить, тк есть группа vars
+
+[windows_servers]
+windows2012  ansible_host=172.31.4.99    
+windows2016  ansible_host=172.31.13.170
+
+[windows_servers:vars]
+ansible_user=myadmin
+ansible_password=mypassword
+ansible_port=5986
+ansible_connection=winrm
+ansible_winrm_server_cert_validation=ignore
+
+Все сервера принадлежат группе all. Также есть группа ungrouped - сервера без групп
+
+[staging_DB]
+192.168.1.1
+192.168.1.2
+
+[staging_WEB]
+192.168.2.1
+192.168.2.2
+
+[staging_APP]
+192.168.3.1
+192.168.3.2
+
+[staging_ALL:children]
+staging_DB
+staging_WEB
+staging_APP
+
+[prod_DB]
+10.10.1.1
+
+[prod_WEB]
+10.10.2.2
+
+[prod_APP]
+10.10.3.3
+
+[prod_ALL:children]
+prod_APP
+prod_DB
+prod_WEB
+
+[DB_ALL:children]
+staging_DB
+prod_DB
+
+[APP_ALL:children]
+prod_APP
+staging_APP
+
+[WEB_ALL:children]
+prod_WEB
+staging_WEB
+
+[OTHER:children]
+APP_ALL
+DB_ALL
+
+[prod_servers:vars]
+ansible_user=admin_username
+ansible_ssh_private_key_file=/home/user/.ssh/california-key2.pem
+
+[OTHER:vars]
+message=Hello
+
+=================================================================
+
+В будущем, в инвентори только ip-адреса и веб-сервера
+
+=================================================================
+
+ansible-inventory --list
+ansible-inventory --graph
+
+
