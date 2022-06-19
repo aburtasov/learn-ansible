@@ -1,0 +1,42 @@
+создать 3 клиента 
+
+использовать ssh key
+скопировать ключи на Master в .ssh
+
+california-key1.pem
+california-key2.pem
+
+sudo chmod 400 california-key*
+
+mkdir ansible
+cd ansible
+
+nano hosts.txt # inventory или hosts
+=====================================
+[staging_servers]
+linuxX   ansible_host=172.31.8.69   ansible_user=admin_username   #ansible_pass=mypassword  ansible_ssh_private_key_file=/home/user/.ssh/california-key1.pem
+
+=====================================
+
+ansible all -i hosts.txt -m ping  #ad hoc command
+
+=====================================
+nano hosts.txt
+
+[staging_servers]
+linuxX   ansible_host=172.31.8.69   ansible_user=admin_username   #ansible_pass=mypassword  ansible_ssh_private_key_file=/home/user/.ssh/california-key1.pem
+
+[prod_servers]
+linux1   ansible_host=172.31.27.16  ansible_user=admin_username   ansible_ssh_private_key_file=/home/user/.ssh/california-key2.pem
+linux2   ansible_host=172.31.19.188  ansible_user=admin_username   ansible_ssh_private_key_file=/home/user/.ssh/california-key2.pem
+========================================================================================================================================
+ansible --version
+nano ansible.cfg
+
+[defaults]
+host_key_checking = false
+inventory = ./hosts.txt
+========================================
+
+ansible all -m ping
+
