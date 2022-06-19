@@ -1,0 +1,44 @@
+3 вещи для того, чтобы поключиться к windows
+
+1. На Master должна быть библиотека winrm
+2. Прописать в host-файле чуть больше параметров, чем обычно
+3. На windows-сервера сделать enable winrm
+
+==============================================================
+
+1.sudo pip install "pywinrm>=0.2.2"
+
+==============================================================
+
+2. Поднимим 2 windows-сервера
+
+nano hosts.txt
+
+[windows_servers]
+windows2012  ansible_host=172.31.4.99    
+windows2016  ansible_host=172.31.13.170
+
+[windows_servers:vars]
+ansible_user=myadmin
+ansible_password=mypassword
+ansible_port=5986
+ansible_connection=winrm
+ansible_winrm_server_cert_validation=ignore
+
+===============================================================
+
+3. Открываем браузер --> ansible for windows
+
+Запустить скрипт /ConfigureRemotingForAnsible.ps1
+На всех windows серверах
+
+Если много серверов, то добавить скрипт в GroupPolicy, который будет его применять
+
+=================================================================
+
+Теперь можно connect 
+
+ansible windows_servers -m win_ping
+
+ansible windows_servers -m win_ping --ask-pass
+
