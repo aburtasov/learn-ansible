@@ -1,0 +1,35 @@
+---
+- name : MyPlaybook for Variables
+  hosts : all
+  become: true
+
+  vars : 
+    message1 : Hello
+    message2 : World
+    secret : vbmsbfbnmdf
+  
+  tasks:
+    - name : Print secret Variable
+      debug :
+        var : secret
+
+    - name:  Debug
+      debug :
+        msg : "Secret : {{ secret }}"
+
+    - debug :
+        msg : "Vladelec etogo servera: {{ owner }}"
+   
+    - set_fact : full_message="{{ message1 }} {{ message2 }}"
+
+    - debug :
+        msg : full_message
+    
+    - debug :
+        var : ansible_distribution
+
+    - shell : uptime
+      register: results # сохранение output
+
+    - debug :
+        var : results
