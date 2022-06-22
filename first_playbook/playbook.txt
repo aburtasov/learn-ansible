@@ -1,0 +1,9 @@
+tree
+
+ansible-playbook playbook1.yaml
+
+ansible-playbook playbook2.yaml
+
+ansible all -m yum -a "name=httpd state=absent" -b
+
+ansible-playbook playbook3.yaml

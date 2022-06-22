@@ -1,0 +1,23 @@
+---
+- name : Install Apache and Upload my Webpage
+  hosts : all
+  become : yes
+
+  vars :
+    source_file : ./my_website/index.html
+    dest_file : /var/www/html
+
+  tasks : 
+  - name: Install Apache WebServer
+    yum : name=httpd state=installed
+
+  - name : Copy my homepage to servers
+    copy : src={{ source_file }} dest={{ dest_file }} mode=0555
+    notify : Restart Apache
+    
+  - name : Star WebServer and Enable it 
+    service : name=httpd state=started enabled=yes
+
+  handlers :
+  - name : Restart Apache
+    service : name=httpd state=restarted
