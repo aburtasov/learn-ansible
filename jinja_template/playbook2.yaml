@@ -29,25 +29,22 @@
 
     when : ansible_os_family="Debian"
 
+  - name : Generate index.html
+    template : src= {{ source_folder }}/index.j2 dest= {{ dest_folder }}/index.html mode=0555
+    notify :
+     - Restart Apache for RedHat
+     - Restart Apache for Debian
+
   - name : Copy my homepage to servers
     copy : src={{ source_folder }}/{{ item }} dest={{ dest_folder }} mode=0555
     loop :
      - "krot.png"
      - "etc.png"
-     - "index.html"
     notify :
      - Restart Apache for RedHat
      - Restart Apache for Debian
 
-     #############With_FileGlob######################
-
-  - name : Copy my homepage to servers
-    copy : src={{ item }}  dest={{ dest_folder }} mode=0555
-    with_fileglob : "{{ dest_folder }}/*.*"
-    notify :
-     - Restart Apache for RedHat
-     - Restart Apache for Debian
-
+  
 #Обработчики
 
   handlers :
