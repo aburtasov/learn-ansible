@@ -26,3 +26,6 @@ copy : {{ source_folder }}/ {{ item }} - останется только item , 
 новый распилинный playbook будет выглядеть - playbook_finally.yaml
 
 ansible-playbook playbook_finally.yaml 
+
+defaults - переменные, которые будут переопределяться, например версия Apache 
+vars - переменные, которые не планируются переопределять , например имя пакета для установки
