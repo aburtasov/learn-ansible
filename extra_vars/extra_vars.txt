@@ -1,0 +1,8 @@
+ansible-playbook playbook_finally.yaml --extra-vars "MYHOSTS=prod"
+
+ansible-playbook playbook_finally.yaml --extra-vars "MYHOSTS=staging"
+
+ansible-playbook playbook_finally.yaml --extra-vars "MYHOSTS=prod owner=Andrey" // переопределение переменной. наивысший приоритет
+
+
+

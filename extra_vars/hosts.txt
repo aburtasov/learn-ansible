@@ -1,0 +1,9 @@
+[staging]
+linux1 ansible_host=172.31.3.113  owner=Vasya
+
+[prod]
+linux2 ansible_host=172.31.22.129  owner=Petya
+
+[all_linux:children]
+staging
+prod
