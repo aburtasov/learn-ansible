@@ -1,0 +1,28 @@
+mkdir roles
+cd roles 
+
+ansible-galaxy init deploy_apache
+
+распилим наш playbook в роль
+
+source_folder переменная больше не нужна, тк есть директория files
+
+template : {{ source_folder }}/index.j2  - останется только index.j2 , тк будет использована директория templates
+
+copy : {{ source_folder }}/ {{ item }} - останется только item ,  тк будет использована директория files
+
+перенесем файлики в files
+
+перенесем index.j2 в templates
+
+теперь начнем переносить контент playbook2.yaml
+
+в defaults/main.yaml перекинем dest_folder : /var/www/html .... source_folder больше не нужна
+
+в handlers/main.yaml перекинем handlers из playbook2.yaml , слово handlers уже не надо 
+
+в task/main.yaml закиним task из playbook2.yaml  .... подправили стоки с index.j2 и {{item}}
+
+новый распилинный playbook будет выглядеть - playbook_finally.yaml
+
+ansible-playbook playbook_finally.yaml 

@@ -1,0 +1,8 @@
+---
+- name : Install Apache and Upload my Webpage
+  hosts : all
+  become : true
+
+  roles :
+   - deploy_apache
+  #- { role: deploy_apache, when : ansible_system == 'Linux' }

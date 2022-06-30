@@ -1,0 +1,14 @@
+<html>
+<head>
+<title> My Site </title>
+<body bgcolor = gray>
+<center>
+<br><br><br><br>
+<br><br><br><br>
+<font color=gold><h2> Owner of this server: {{ owner }} </h2> <br>
+Server hostname: {{ ansible_hostname }} <br>
+Server OS : {{ ansible_os_family }} <br>
+Server IP : {{ ansible_default_ipv4.address }} <br>
+
+</body>
+</html>
