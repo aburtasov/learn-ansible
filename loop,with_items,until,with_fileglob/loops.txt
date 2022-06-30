@@ -1,0 +1,1 @@
+ansible-playbok playbok_loop.yaml
