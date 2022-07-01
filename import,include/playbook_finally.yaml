@@ -10,8 +10,6 @@
     - name : Ping test
       ping :
 
-    - name : Create folders 
-      include : create_folders.yaml
-
-    - name : Create files
-      include : create_files.yaml 
+    #- name : Create folders 
+    - include : create_folders.yaml mytext="Hello world!"
+    - include : create_files.yaml 
