@@ -1,0 +1,49 @@
+---
+- name : My Super Playbook
+  hosts:  all 
+  become : true
+
+  vars:
+    mytext : "Privet"
+
+  tasks:
+
+   - name : Update my Database
+     shell : echo Updating Database...
+     # только один раз
+     run_once : true
+     delegate_to : linux1
+
+   - name : Unregister Server from LoadBalancer
+     shell : echo This server {{ inventory_hostname }} was deregistr from LB, node name - {{ ansible_nodename }} >> /home/log.txt
+     delegate_to : 127.0.0.1
+
+   - name: Create file1
+     copy :
+        dest : /home/file1.txt
+        content : |
+          This is file1
+          On English - Hello
+          On Russian - {{ mytext }}
+     delegate_to : linux3
+      
+   - name: Create file2
+     copy :
+        dest : /home/file2.txt
+        content : |
+          This is file2
+          On English - Hello
+          On Russian - {{ mytext }}
+          
+   - name : Reboot my servers
+     shell : sleep 3 && rebbot now 
+     async : 1
+     poll : 0 
+
+   - name : Wait till my server will come up online
+     wait_for :
+      host : "{{ inventory_hostname }}"
+      state : started
+      delay : 5
+      timeout : 40 
+     delegate_to : 127.0.0.1
