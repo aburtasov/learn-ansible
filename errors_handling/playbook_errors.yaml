@@ -1,0 +1,28 @@
+---
+- name : Erros Handling
+  host : all
+  any_errors_fatal : true # любая ошибка остановит выполнение playbook
+  become : yes
+
+  tasks :
+  - name : Task Number 1
+    yum : name=treee state=lates
+    ignore_errors : yes # игнорирование ошибок. продолжится выполнение
+
+  - name : Task Number 2
+    shell : echo Hello World! #ls -la /etc
+    register : results
+    failed_when : "'World' in results.stdout " # таски далее выполняться не будут
+
+  - debug:
+      var : results
+
+  - name : Task Number 3
+    shell : echo World!
+    register : results
+    failed_when : results.rc == 1   # return code 
+
+  - name : Task Number 4
+    shell : cat /home/user/myfile.txt
+    register : results
+    

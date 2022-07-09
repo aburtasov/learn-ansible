@@ -1,0 +1,8 @@
+task 1 ok ok ok 
+task 2 ok failed ok 
+task 3 ok not exec ok 
+task 4 ok not exec ok s
+
+ansible-palybook palybook_errors.yaml
+
+not executed
