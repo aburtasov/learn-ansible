@@ -1,0 +1,9 @@
+docs.ansible.com
+
+aws guide
+
+ansible-doc -l | grep ec2 
+
+ansible-playbook -i hosts.txt playbook.yaml
+
+при повторном запуске снова создадутся ресурсы
