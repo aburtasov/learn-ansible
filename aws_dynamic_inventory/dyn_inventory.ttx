@@ -1,0 +1,24 @@
+ec2.py   # ec2 external inventory
+ec2.ini
+copy link 
+wget link 
+
+account aws read only -> ec2 -> rds ->elastic cash
+export AWS_ACCESS_KEY
+export AWS_SECRET_ACCESS_KEY
+
+./ec2.py --list 
+
+./ec2.py --list --refresh-cash 
+
+nano eu-central-1 --> group_vars --> ansible_ssh_private_key
+nano us-west-1 --> group_vars --> ansible_ssh_private_key
+
+ansible -i ec2.py all -m ping 
+
+ansible -i ec2.py tag_Env_STAGING -m ping 
+
+ansible-playbook -i ec2.py playbook.yaml
+
+nano ec2.ini  # congiguration ec2.py 
+

@@ -1,0 +1,8 @@
+---
+- name : Test Connection
+  hosts: all # us-west-1 # tag_Env_PROD
+  become : true
+
+  tasks:
+    - name: Ping all servers
+      ping:
