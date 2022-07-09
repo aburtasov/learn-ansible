@@ -1,0 +1,22 @@
+---
+- name : Ansible Lesson 20 Vault
+  hosts : all
+  become : yes 
+
+  vars :
+    admin_password: PassW0rd123@
+
+  tasks :
+  
+  - name : Install package tree
+    yum : name=tree state=latest
+
+  - name : Create Config File 
+    copy :
+      dest : "/home/user/myconfig.conf"
+      content :
+        port = 9092
+        log = 7 days
+        home = /opt/kafka/bin
+        user = admin
+        password = {{ admin_password }}

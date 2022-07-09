@@ -1,0 +1,22 @@
+ansible-vault create mysecret.txt
+ansible-vault view mysecret.txt
+ansible-vault edit  mysecret.txt
+ansible-vault rekey mysecret.txt  # сменить пароль на файл
+
+ansible-vault encrypt playbook_errors.yaml
+ansible-vault decrypt playbook_errors.yaml
+
+ansible-playbook playbook_errors.yaml --ask-vault-pass
+
+nano mypass.txt > privet
+
+ansible-playbook playbook_errors.yaml --vault-password-file mypass.txt
+
+ansible-vault encrypt_string
+Passw0rd123@
+
+ansible-vault encrypt_string --stdin-name "mypass"
+
+ansible-playbook playbook_errors.yaml --ask-vault-pass 
+
+acho -n(не делать new line) "$%secretword%3" | ansible-vault encrypt_string
